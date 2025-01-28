@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hora, Fecha y Clima</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+        }
+        .container {
+            position: relative;
+            width: 897px;
+            height: 192px;
+        }
+        .background {
+            width: 100%;
+            height: 100%;
+        }
+        .time {
+            position: absolute;
+            top: 33%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            font-size: 70px;
+            font-family: OpenSans, sans-serif;
+            color: #002060;
+            font-weight: bold;
+        }
+        .date {
+            position: absolute;
+            top: 70%;
+            left: 27%;
+            transform: translate(-50%, -50%);
+            font-size: 45px;
+            font-family: OpenSans, sans-serif;
+            color: #002060;
+        }
+        .weather {
+            position: absolute;
+            top: 45%;
+            left: 67%;
+            transform: translate(-50%, -50%);
+            font-size: 60px;
+            font-family: OpenSans, sans-serif;
+            color: #002060;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Background Image -->
+        <img src="CLIMATM.png" alt="Diseño de fondo" class="background">
+
+        <!-- Real-time clock -->
+        <div id="clock" class="time"></div>
+
+        <!-- Real-time date -->
+        <div id="date" class="date"></div>
+
+        <!-- Weather info -->
+        <div id="weather" class="weather"></div>
+    </div>
+
+    <script>
+        // Function to update time and date
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}`;
+
+            const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+            const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+            const dayName = days[now.getDay()];
+            const day = now.getDate();
+            const month = months[now.getMonth()];
+            document.getElementById('date').textContent = `${dayName}, ${day} de ${month}`;
+        }
+
+        // Function to fetch weather data
+        async function fetchWeather() {
+            const apiKey = '65fd2c24a1679d15f7b59502783522f7'; // Reemplaza con tu clave de OpenWeatherMap
+            const city = 'Bogotá';
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=es`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.weather && data.main) {
+                    const temperature = Math.round(data.main.temp);
+                    document.getElementById('weather').textContent = `${temperature}°C`;
+                } else {
+                    document.getElementById('weather').textContent = 'Clima no disponible';
+                }
+            } catch (error) {
+                document.getElementById('weather').textContent = 'Error al obtener el clima';
+            }
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+        fetchWeather();
+    </script>
+</body>
+</html>
