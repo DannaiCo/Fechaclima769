@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hora, Fecha y Clima</title>
@@ -15,8 +14,8 @@
         }
         .container {
             position: relative;
-            width: 897px;
-            height: 192px;
+            width: 769px;
+            height: 193px;
         }
         .background {
             width: 100%;
@@ -35,16 +34,20 @@
         .date {
             position: absolute;
             top: 70%;
-            left: 28%;
+            left: 27%;
             transform: translate(-50%, -50%);
-            font-size: 40px;
+            font-size: 2vw;
             font-family: OpenSans, sans-serif;
             color: #002060;
+            white-space: nowrap;
+            max-width: 90%;
+            overflow: hidden;
+            text-overflow: ellipsis; 
         }
         .weather {
             position: absolute;
             top: 45%;
-            left: 67%;
+            left: 69%;
             transform: translate(-50%, -50%);
             font-size: 60px;
             font-family: OpenSans, sans-serif;
@@ -58,13 +61,13 @@
         <img src="CLIMATM.png" alt="Diseño de fondo" class="background">
 
         <!-- Real-time clock -->
-        <div id="clock" class="time"></div>
+        <div id="clock" class="time">15:19</div>
 
         <!-- Real-time date -->
-        <div id="date" class="date"></div>
+        <div id="date" class="date">Miércoles, 29 de Enero</div>
 
         <!-- Weather info -->
-        <div id="weather" class="weather"></div>
+        <div id="weather" class="weather">20°C</div>
     </div>
 
     <script>
@@ -108,5 +111,6 @@
         updateClock();
         fetchWeather();
     </script>
-</body>
-</html>
+
+
+</body></html>
