@@ -33,7 +33,7 @@
     }
     .time {
       position: absolute;
-      top: 28%;
+      top: 26%;
       left: 25%;
       transform: translate(-50%, -50%);
       font-size: 70px;
@@ -42,17 +42,18 @@
     }
     .date {
       position: absolute;
-      top: 70%;
+	 font-weight: bold;
+      top: 69%;
       left: 25%;
       transform: translate(-50%, -50%);
-      font-size: 35px;
+      font-size: 40px;
       font-family: OpenSans, sans-serif;
     }
     .weather-description {
 	  width: max-content;
       position: absolute;
       top: 25%;
-      left: 71%;
+      left: 72%;
       transform: translate(-50%, -50%);
       font-size: 21px;
       font-family: OpenSans, sans-serif;
@@ -134,18 +135,18 @@
       "tornado": "Tornado"
     };
 
-function updateClock() {
-  const now = new Date();
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
-  document.getElementById('clock').textContent = `${hours}:${minutes}`;
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('clock').textContent = `${hours}:${minutes}`;
 
       const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
       const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
       const dayName = days[now.getDay()];
       const day = now.getDate();
       const month = months[now.getMonth()];
-	  document.getElementById('date').innerHTML = `<div style="text-align:center;">${dayName}<br>${day} de ${month}</div>`;
+  document.getElementById('date').innerHTML = `<div style="text-align:center;">${dayName}<br>${day} de ${month}</div>`;
 
       updateBackground(now.getHours());
     }
@@ -192,8 +193,8 @@ function updateClock() {
       const weatherDescription = document.getElementById('weatherDescription');
 
       if (currentHour >= 6 && currentHour < 18) {
-        clock.style.color = "#ffffff";
-        date.style.color = "#ffffff";
+        clock.style.color = "#990000";
+        date.style.color = "#990000";
         weather.style.color = "#ffffff";
         weatherDescription.style.color = "#ffffff";
       } else {
