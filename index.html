@@ -185,26 +185,43 @@
       }
     }
 
-    function updateBackground(currentHour) {
-      const backgroundImage = document.getElementById('backgroundImage');
-      const clock = document.getElementById('clock');
-      const date = document.getElementById('date');
-      const weather = document.getElementById('weather');
-      const weatherDescription = document.getElementById('weatherDescription');
-
-      if (currentHour >= 6 && currentHour < 18) {
-        clock.style.color = "#990000";
-        date.style.color = "#990000";
-        weather.style.color = "#ffffff";
-        weatherDescription.style.color = "#ffffff";
-      } else {
-        clock.style.color = "#990000";
-        date.style.color = "#990000";
-        weather.style.color = "#ffffff";
-        weatherDescription.style.color = "#ffffff";
+   function updateBackground(currentHour) {
+ 
+    const video = document.getElementById("fondo");
+    const source = video.querySelector("source");
+ 
+    // Noche: 18:00 a 05:00
+    if (currentHour >= 18 || currentHour < 5) {
+      if (!source.src.includes("CLIMATMN.mp4")) {
+        source.src = "CLIMATMN.mp4";
+        video.load();
+      }
+    } 
+    // Día: 05:01 a 17:59
+    else {
+      if (!source.src.includes("CLIMATM.mp4")) {
+        source.src = "CLIMATM.mp4";
+        video.load();
       }
     }
-
+    const backgroundImage = document.getElementById('backgroundImage');
+    const clock = document.getElementById('clock');
+    const date = document.getElementById('date');
+    const weather = document.getElementById('weather');
+    const weatherDescription = document.getElementById('weatherDescription');
+ 
+    if (currentHour >= 6 && currentHour < 18) {
+      clock.style.color = "#002060";
+      date.style.color = "#002060";
+      weather.style.color = "#ffffff";
+      weatherDescription.style.color = "#ffffff";
+    } else {
+      clock.style.color = "#fff";
+      date.style.color = "#fff";
+      weather.style.color = "#ffffff";
+      weatherDescription.style.color = "#ffffff";
+    }
+    }
     setInterval(updateClock, 1000);
     updateClock();
     fetchWeather();
@@ -212,5 +229,6 @@
   </script>
 </body>
 </html>
+
 
 
