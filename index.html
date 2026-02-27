@@ -175,32 +175,50 @@
       /* ========================
    ICONOS PERSONALIZADOS
 ======================== */
-      function getWeatherIcon(description, iconCode) {
-        const desc = description.toLowerCase();
-        const isNight = iconCode.includes("n");
+function getWeatherIcon(description, iconCode) {
+  const desc = description.toLowerCase();
+  const isNight = iconCode.includes("n");
 
-        if (desc.includes("tormenta")) return "Iconos/Tormenta.svg";
+  // TORMENTA
+  if (desc.includes("tormenta")) {
+    return "Iconos/Tormenta.svg";
+  }
 
-        if (desc.includes("lluvia")) {
-          if (desc.includes("fuerte")) return "Iconos/Lluvia_Fuerte.svg";
-          return "Iconos/Lluvia_Suave.svg";
-        }
+  // LLUVIA O LLOVIZNA
+  if (desc.includes("lluvia") || desc.includes("llovizna")) {
+    if (desc.includes("fuerte") || desc.includes("intensa")) {
+      return "Iconos/Lluvia_Fuerte.svg";
+    }
+    return "Iconos/Lluvia_Suave.svg";
+  }
 
-        if (desc.includes("nube")) {
-          if (desc.includes("parcial")) {
-            return isNight ? "Iconos/Parcialmente_Nublado_Noche.svg" : "Iconos/Parcialmente_Nublado.svg";
-          }
-          return "Iconos/Nublado.svg";
-        }
+  // NUBLADO
+  if (desc.includes("nube") || desc.includes("nuboso")) {
+    if (desc.includes("parcial")) {
+      return isNight
+        ? "Iconos/Parcialmente_Nublado_Noche.svg"
+        : "Iconos/Parcialmente_Nublado.svg";
+    }
+    return "Iconos/Nublado.svg";
+  }
 
-        if (desc.includes("claro") || desc.includes("despejado")) {
-          return isNight ? "Iconos/Despejado_Noche.svg" : "Iconos/Soleado.svg";
-        }
+  // DESPEJADO
+  if (desc.includes("claro") || desc.includes("despejado")) {
+    return isNight
+      ? "Iconos/Despejado_Noche.svg"
+      : "Iconos/Soleado.svg";
+  }
 
-        if (desc.includes("viento")) return "Iconos/Vientos_fuertes.svg";
+  // VIENTO
+  if (desc.includes("viento")) {
+    return "Iconos/Vientos_fuertes.svg";
+  }
 
-        return "Iconos/Soleado.svg";
-      }
+  // FALLBACK
+  return isNight
+    ? "Iconos/Despejado_Noche.svg"
+    : "Iconos/Soleado.svg";
+}
       /* ========================
    CLIMA API
 ======================== */
@@ -245,4 +263,5 @@
       setInterval(fetchWeather, 10 * 60 * 1000);
     </script>
   </body>
+
 </html>
