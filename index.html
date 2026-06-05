@@ -35,8 +35,8 @@
       /* HORA */
       .time {
         position: absolute;
-        top: 33%;
-        left: 24%;
+        top: 31%;
+        left: 23%;
         transform: translate(-50%, -50%);
         font-size: 72px;
         font-weight: bold;
@@ -46,12 +46,12 @@
       /* FECHA */
       .date {
         position: absolute;
-        top: 78%;
-        left: 24%;
+        top: 82%;
+        left: 22%;
         transform: translate(-50%, -50%);
-        font-size: 31px;
+        font-size: 25px;
         font-weight: bold;
-        color: #4a90e2;
+        color: #0033d3;
         text-align: center;
         line-height: 1.1;
       }
@@ -72,9 +72,9 @@
         top: 49%;
         left: 75%;
         transform: translate(-50%, -50%);
-        font-size: 60px;
+        font-size: 55px;
         font-weight: bold;
-        color: #000000;
+        color: #0033d3;
       }
 
       /* DESCRIPCIÓN */
@@ -84,7 +84,7 @@
         left: 76%;
         transform: translate(-50%, -50%);
         font-size: 22px;
-        color: #4a90e2;
+        color: #0033d3;
       }
 
       /* CIUDAD */
@@ -95,7 +95,7 @@
         transform: translate(-50%, -50%);
         font-size: 24px;
         font-weight: semibold;
-        color: #6b6f75;
+        color: #0033d3;
       }
     </style>
   </head>
@@ -145,7 +145,7 @@
         const day = now.getDate();
         const month = months[now.getMonth()];
 
-        document.getElementById("date").innerHTML = `${dayName}<br>${day} de ${month}`;
+        document.getElementById("date").innerHTML = `${dayName} ${day} de ${month}`;
       }
 
       /* ========================
