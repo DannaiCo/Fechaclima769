@@ -35,10 +35,10 @@
       /* HORA */
       .time {
         position: absolute;
-        top: 31%;
-        left: 23%;
+        top: 29%;
+        left: 30%;
         transform: translate(-50%, -50%);
-        font-size: 72px;
+        font-size: 68px;
         font-weight: bold;
         color: #ffffff;
       }
@@ -46,12 +46,12 @@
       /* FECHA */
       .date {
         position: absolute;
-        top: 82%;
-        left: 22%;
+        top: 72%;
+        left: 28%;
         transform: translate(-50%, -50%);
-        font-size: 25px;
+        font-size: 34px;
         font-weight: bold;
-        color: #0033d3;
+        color: #04308c;
         text-align: center;
         line-height: 1.1;
       }
@@ -59,43 +59,44 @@
       /* ICONO GRANDE */
       .weather-icon-big {
         position: absolute;
-        top: 50%;
-        left: 57%;
+        top: 47%;
+        left: 58%;
         transform: translate(-50%, -50%);
-        width: 95px;
+        width: 91px;
         height: 95px;
       }
 
       /* TEMPERATURA */
       .weather {
         position: absolute;
-        top: 49%;
-        left: 75%;
+        top: 48%;
+        left: 76%;
         transform: translate(-50%, -50%);
-        font-size: 55px;
+        font-size: 59px;
         font-weight: bold;
-        color: #0033d3;
+        color: #0857d3;
       }
 
       /* DESCRIPCIÓN */
       .weather-description {
         position: absolute;
-        top: 72%;
+        top: 70%;
         left: 76%;
+        font-weight: bold;
         transform: translate(-50%, -50%);
-        font-size: 22px;
-        color: #0033d3;
+        font-size: 20px;
+        color: #04308c;
       }
 
       /* CIUDAD */
       .city {
         position: absolute;
-        top: 26%;
-        left: 75%;
+        top: 25%;
+        left: 76%;
         transform: translate(-50%, -50%);
-        font-size: 24px;
-        font-weight: semibold;
-        color: #0033d3;
+        font-size: 20px;
+        font-weight: bold;
+        color: #04308c;
       }
     </style>
   </head>
@@ -145,7 +146,7 @@
         const day = now.getDate();
         const month = months[now.getMonth()];
 
-        document.getElementById("date").innerHTML = `${dayName} ${day} de ${month}`;
+        document.getElementById("date").innerHTML = `${dayName}<br>${day} de ${month}`;
       }
 
       /* ========================
@@ -175,54 +176,32 @@
       /* ========================
    ICONOS PERSONALIZADOS
 ======================== */
-function getWeatherIconById(weatherId, iconCode) {
-  const isNight = iconCode.includes("n");
+      function getWeatherIcon(description, iconCode) {
+        const desc = description.toLowerCase();
+        const isNight = iconCode.includes("n");
 
-  // TORMENTAS
-  if (weatherId >= 200 && weatherId < 300) {
-    return "Iconos/Tormenta.svg";
-  }
+        if (desc.includes("tormenta")) return "Iconos/Tormenta.svg";
 
-  // LLOVIZNA
-  if (weatherId >= 300 && weatherId < 400) {
-    return "Iconos/Lluvia_Suave.svg";
-  }
+        if (desc.includes("lluvia")) {
+          if (desc.includes("fuerte")) return "Iconos/Lluvia_Fuerte.svg";
+          return "Iconos/Lluvia_Suave.svg";
+        }
 
-  // LLUVIA
-  if (weatherId >= 500 && weatherId < 600) {
-    if (weatherId >= 520) {
-      return "Iconos/Lluvia_Fuerte.svg";
-    }
-    return "Iconos/Lluvia_Suave.svg";
-  }
+        if (desc.includes("nube")) {
+          if (desc.includes("parcial")) {
+            return isNight ? "Iconos/Parcialmente_Nublado_Noche.svg" : "Iconos/Parcialmente_Nublado.svg";
+          }
+          return "Iconos/Nublado.svg";
+        }
 
-  // NIEBLA Y ATMÓSFERA
-  if (weatherId >= 700 && weatherId < 800) {
-    return "Iconos/Nublado.svg";
-  }
+        if (desc.includes("claro") || desc.includes("despejado")) {
+          return isNight ? "Iconos/Despejado_Noche.svg" : "Iconos/Soleado.svg";
+        }
 
-  // CIELO DESPEJADO
-  if (weatherId === 800) {
-    return isNight
-      ? "Iconos/Despejado_Noche.svg"
-      : "Iconos/Soleado.svg";
-  }
+        if (desc.includes("viento")) return "Iconos/Vientos_fuertes.svg";
 
-  // NUBES
-  if (weatherId > 800) {
-    if (weatherId === 801) {
-      return isNight
-        ? "Iconos/Parcialmente_Nublado_Noche.svg"
-        : "Iconos/Parcialmente_Nublado.svg";
-    }
-    return "Iconos/Nublado.svg";
-  }
-
-  // FALLBACK
-  return isNight
-    ? "Iconos/Despejado_Noche.svg"
-    : "Iconos/Soleado.svg";
-}
+        return "Iconos/Soleado.svg";
+      }
       /* ========================
    CLIMA API
 ======================== */
@@ -244,8 +223,7 @@ function getWeatherIconById(weatherId, iconCode) {
             document.getElementById("weatherText").textContent =
               description.charAt(0).toUpperCase() + description.slice(1);
 
-            const weatherId = data.weather[0].id;
-            const iconPath = getWeatherIconById(weatherId, iconCode);
+            const iconPath = getWeatherIcon(description, iconCode);
             document.getElementById("weatherIconBig").src = iconPath;
           }
         } catch (error) {
@@ -268,6 +246,4 @@ function getWeatherIconById(weatherId, iconCode) {
       setInterval(fetchWeather, 10 * 60 * 1000);
     </script>
   </body>
-
 </html>
-
